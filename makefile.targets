@@ -1,0 +1,5 @@
+:install libflaarlib.so
+	-@echo 'Installing'
+	install -m 0775 /home/dehnhardt/develop/Flaarlib/Debug/libflaarlib.so /home/dehnhardt/tmp 
+
+.PHONY: install
