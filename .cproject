@@ -61,7 +61,7 @@
 								<option defaultValue="true" id="gnu.cpp.link.so.debug.option.shared.1169370368" name="Shared (-shared)" superClass="gnu.cpp.link.so.debug.option.shared" useByScannerDiscovery="false" valueType="boolean"/>
 								<option id="gnu.cpp.link.option.paths.174335399" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" useByScannerDiscovery="false"/>
 								<option id="gnu.cpp.link.option.libs.528439957" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" useByScannerDiscovery="false"/>
-								<option id="gnu.cpp.link.option.soname.672811018" name="Shared object name (-Wl,-soname=)" superClass="gnu.cpp.link.option.soname" useByScannerDiscovery="false" value="flaarlib" valueType="string"/>
+								<option id="gnu.cpp.link.option.soname.672811018" name="Shared object name (-Wl,-soname=)" superClass="gnu.cpp.link.option.soname" useByScannerDiscovery="false" value="" valueType="string"/>
 								<option id="gnu.cpp.link.option.implname.186332744" name="Import Library name (-Wl,--out-implib=)" superClass="gnu.cpp.link.option.implname" useByScannerDiscovery="false" value="" valueType="string"/>
 								<option id="gnu.cpp.link.option.defname.1515922265" name="DEF file name (-Wl,--output-def=)" superClass="gnu.cpp.link.option.defname" useByScannerDiscovery="false" value="" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1940913327" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
