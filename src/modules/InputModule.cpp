@@ -13,6 +13,7 @@ InputModule::InputModule(std::string moduleName, int numberOfOutputChannels) :
 		FLModule(moduleName) {
 	m_numberOfOutputChannels = numberOfOutputChannels;
 	m_numberOfOutputPorts = 0;
+	Flaarlib::instance()->addInputModule(this);
 }
 
 InputModule::~InputModule() {

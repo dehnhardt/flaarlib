@@ -60,7 +60,7 @@ public:
 	 * @param moduleName type name of the module
 	 */
 
-	FLModule( std::string moduleName );
+	FLModule(std::string moduleName);
 	/**
 	 * default destrucur
 	 */
@@ -69,25 +69,25 @@ public:
 	/**
 	 * connects this modules output to an input of another module
 	 */
-	int connectOutput( FLModule * next);
+	int connectOutput(FLModule * next);
 
 	/**
 	 * callback method when another module connects its output
 	 * to this modules input
 	 */
-	int inputConnected();
+	int inputConnected(FLModule * previous);
 
 	/**
 	 * wrapper method for processing the data
 	 */
-	int process( jack_nframes_t nframes, void *arg );
+	int process(jack_nframes_t nframes, void *arg);
 
 	/**
 	 * queries the name of this module
 	 * @return the name of this module
 	 */
-	std::string getModuleName(){
-		return this->m_moduleName;
+	std::string getModuleName() {
+		return (this->m_moduleName);
 	}
 
 	/**
@@ -95,7 +95,7 @@ public:
 	 * @return number of input channels for this module
 	 */
 	int getNumberOfInputChannels() const {
-		return m_numberOfInputChannels;
+		return (m_numberOfInputChannels);
 	}
 
 	/**
@@ -103,7 +103,7 @@ public:
 	 * @return number of connected input ports
 	 */
 	int getNumberOfInputPorts() const {
-		return m_numberOfInputPorts;
+		return (m_numberOfInputPorts);
 	}
 
 	/**
@@ -111,7 +111,7 @@ public:
 	 * @return number of output channels
 	 */
 	int getNumberOfOutputChannels() const {
-		return m_numberOfOutputChannels;
+		return (m_numberOfOutputChannels);
 	}
 
 	/**
@@ -119,19 +119,19 @@ public:
 	 * @return the number of output ports connected to this module
 	 */
 	int getNumberOfOutputPorts() const {
-		return m_numberOfOutputPorts;
+		return (m_numberOfOutputPorts);
 	}
 
 protected:
 	/**
 	 * method for processing the data
 	 */
-	virtual int internal_process(jack_nframes_t nframes, void *arg ) = 0;
+	virtual int internal_process(jack_nframes_t nframes, void *arg) = 0;
 
 	/**
 	 * method to overwrite when module has specific need when connecting
 	 */
-	virtual bool internal_connectOutput( FLModule * next) = 0;
+	virtual bool internal_connectOutput(FLModule * next) = 0;
 
 	/**
 	 * the number of input channels of this module and all ports
@@ -153,18 +153,17 @@ protected:
 	 */
 	int m_numberOfOutputPorts = 0;
 
-
 private:
 
 	/**
 	 * creates an input-port when another module connects
 	 */
-	FLPort* craeteInputPort( std::string connectedModuleName );
+	FLPort* craeteInputPort(std::string connectedModuleName);
 
 	/**
 	 * creates an output port when connecting to another module
 	 */
-	FLPort* createOutputPort( std::string connectedModuleName );
+	FLPort* createOutputPort(std::string connectedModuleName);
 
 	/**
 	 * creates the mapping from all ports from this module
@@ -177,22 +176,20 @@ private:
 	 */
 	std::string m_moduleName;
 
-
 	/**
 	 * a uuid for this module
 	 */
 	boost::uuids::uuid m_moduleUUID;
 
-
 	/**
 	 * all inputPorts
 	 */
-    std::map<std::string,FLPort*> m_inputPorts;
+	std::map<std::string, FLPort*> m_inputPorts;
 
-    /**
-     * all outpuPorts
-     */
-    std::map<std::string,FLPort*> m_outputPorts;
+	/**
+	 * all outpuPorts
+	 */
+	std::map<std::string, FLPort*> m_outputPorts;
 
 	/**
 	 * number of already processed input ports

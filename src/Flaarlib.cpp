@@ -9,6 +9,8 @@
 
 #include "Flaarlib.h"
 #include "FLModule.h"
+#include "modules/InputModule.h"
+#include "exceptions/Exceptions.h"
 
 #include <vector>
 
@@ -21,7 +23,6 @@ Flaarlib::Flaarlib() {
 }
 
 Flaarlib::~Flaarlib() {
-	// TODO Auto-generated destructor stub
 }
 
 /**
@@ -29,6 +30,23 @@ Flaarlib::~Flaarlib() {
  */
 void Flaarlib::initializeLogging() {
 }
+
+void Flaarlib::addInputModule(InputModule* inputModule) {
+	m_inputModules[inputModule->getModuleName()] = inputModule;
+}
+
+void Flaarlib::addModule(FLModule* module) {
+	if (m_modules[module->getModuleName()] != 0)
+		throw new ConfigurationExecption(
+				ConfigurationExceptionType::NAME_NOT_UNIQUE, "ABC", "DEF");
+	m_modules[module->getModuleName()] = module;
+}
+
+void Flaarlib::loopDetection() {
+	//for(m_inputModules)
+}
+
+Flaarlib* Flaarlib::_instance = 0;
 
 } /* namespace flaarlib */
 

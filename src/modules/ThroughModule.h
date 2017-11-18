@@ -1,23 +1,24 @@
 /*
- * InputModule.h
+ * ThroughModule.h
  *
  *  Created on: 29.01.2016
  *      Author: dehnhardt
  */
 
-#ifndef MODULES_INPUTMODULE_H_
-#define MODULES_INPUTMODULE_H_
+#ifndef MODULES_THROUGHMODULE_H_
+#define MODULES_THROUGHMODULE_H_
 
 #include "../FLModule.h"
 #include <string>
 
 namespace flaarlib {
 
-class FLAARLIB_API InputModule : public FLModule {
+class FLAARLIB_API ThroughModule: public FLModule {
 
 public:
-	InputModule(std::string moduleName, int numberOfOutputChannels);
-	virtual ~InputModule();
+	ThroughModule(std::string moduleName, int numberOfInputChannels,
+			int numberOfOutputChannels);
+	virtual ~ThroughModule();
 
 	/**
 	 * method for processing the data
