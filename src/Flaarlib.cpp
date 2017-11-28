@@ -11,8 +11,10 @@
 #include "FLModule.h"
 #include "modules/InputModule.h"
 #include "exceptions/Exceptions.h"
+#include "helper/LoopDetector.h"
 
 #include <vector>
+#include <algorithm>
 
 namespace flaarlib {
 
@@ -36,14 +38,25 @@ void Flaarlib::addInputModule(InputModule* inputModule) {
 }
 
 void Flaarlib::addModule(FLModule* module) {
-	if (m_modules[module->getModuleName()] != 0)
+	string moduleName = module->getModuleName();
+	if (!m_modules.push_back_unique(moduleName))
 		throw new ConfigurationExecption(
 				ConfigurationExceptionType::NAME_NOT_UNIQUE, "ABC", "DEF");
-	m_modules[module->getModuleName()] = module;
 }
 
 void Flaarlib::loopDetection() {
-	//for(m_inputModules)
+	map<string, InputModule*>::iterator it;
+	try {
+		for (it = m_inputModules.begin(); it != m_inputModules.end(); ++it) {
+			vector<string> moduleNames;
+			FLModule *m = it->second;
+			UniqueVector<string> v;
+			new LoopDetector(m, v);
+		}
+		m_configurationValid = true;
+	} catch (ConfigurationExecption *e) {
+		FLLog::error(e->getMessage());
+	}
 }
 
 Flaarlib* Flaarlib::_instance = 0;

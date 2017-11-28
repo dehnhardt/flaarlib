@@ -52,7 +52,7 @@ int FLModule::connectOutput(FLModule* next) {
 	if (next->m_numberOfInputChannels > m_numberOfOutputChannels)
 		throw new ConfigurationExecption(
 				ConfigurationExceptionType::MORE_INPUT_CHANNELS);
-	FLPort *p = createOutputPort(next->getModuleName());
+	FLPort *p = createOutputPort(next);
 	// this->m_outputPorts[next->getModuleName()] = p;
 	next->m_inputPorts[getModuleName()] = p;
 	// call callback in following module
@@ -80,19 +80,11 @@ int FLModule::process(jack_nframes_t nframes, void * arg) {
 	return (result_);
 }
 
-FLPort* FLModule::craeteInputPort(std::string connectedModuleName) {
-	FLPort *p = new FLPort(this);
-	p->setNumberOfChannels(m_numberOfInputChannels);
-	m_inputPorts[connectedModuleName] = p;
-	m_numberOfInputPorts++;
-	return (p);
-}
-
-FLPort* FLModule::createOutputPort(std::string connectedModuleName) {
-	FLPort *p = new FLPort(this);
+FLPort* FLModule::createOutputPort(FLModule *connectedModule) {
+	FLPort *p = new FLPort(connectedModule);
 	p->setNumberOfChannels(m_numberOfOutputChannels);
-	m_outputPorts[connectedModuleName] = p;
-	m_numberOfInputPorts++;
+	m_outputPorts[connectedModule->getModuleName()] = p;
+	m_numberOfOutputPorts++;
 	return (p);
 }
 

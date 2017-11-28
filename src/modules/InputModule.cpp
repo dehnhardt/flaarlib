@@ -20,11 +20,12 @@ InputModule::~InputModule() {
 	// TODO Auto-generated destructor stub
 }
 
-int InputModule::internal_process(jack_nframes_t nframes, void* arg) {
+int InputModule::internal_process(__attribute__((unused))  jack_nframes_t nframes,
+		__attribute__((unused)) void* arg) {
 	return (0);
 }
 
-bool InputModule::internal_connectOutput(FLModule* next) {
+bool InputModule::internal_connectOutput(__attribute__((unused))  FLModule* next) {
 	return (true);
 }
 

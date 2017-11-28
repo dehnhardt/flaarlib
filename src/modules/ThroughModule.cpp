@@ -22,11 +22,14 @@ ThroughModule::~ThroughModule() {
 	// TODO Auto-generated destructor stub
 }
 
-int ThroughModule::internal_process(jack_nframes_t nframes, void* arg) {
+int ThroughModule::internal_process(
+		__attribute__((unused))   jack_nframes_t nframes,
+		__attribute__((unused)) void* arg) {
 	return (0);
 }
 
-bool ThroughModule::internal_connectOutput(FLModule* next) {
+bool ThroughModule::internal_connectOutput(
+		__attribute__((unused))  FLModule* next) {
 	return (true);
 }
 

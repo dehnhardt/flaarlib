@@ -42,8 +42,11 @@
 #define FLAARLIB_H_
 
 #include <map>
+#include <vector>
 #include <string>
+#include <iterator>
 
+#include "helper/UniqueVector.hpp"
 
 namespace flaarlib {
 
@@ -69,9 +72,10 @@ private:
 	Flaarlib();
 	Flaarlib(const Flaarlib &);
 	virtual ~Flaarlib();
-
 	void initializeLogging();
-	std::map<std::string, FLModule*> m_modules;
+
+	bool m_configurationValid = false;
+	UniqueVector<std::string> m_modules;
 	std::map<std::string, InputModule*> m_inputModules;
 	class CGuard {
 	public:

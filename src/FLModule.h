@@ -122,17 +122,26 @@ public:
 		return (m_numberOfOutputPorts);
 	}
 
+	std::map<std::string, FLPort *> getOutputPorts() {
+		return (m_outputPorts);
+	}
+
 protected:
 	/**
 	 * method for processing the data
 	 */
-	virtual int internal_process(jack_nframes_t nframes, void *arg) = 0;
+	virtual int internal_process(__attribute__((unused))  jack_nframes_t nframes,
+			__attribute__((unused)) void *arg) {
+		return (0);
+	}
+
 
 	/**
 	 * method to overwrite when module has specific need when connecting
 	 */
-	virtual bool internal_connectOutput(FLModule * next) = 0;
-
+	virtual bool internal_connectOutput(__attribute__((unused))  FLModule * next) {
+		return (true);
+	}
 	/**
 	 * the number of input channels of this module and all ports
 	 */
@@ -156,14 +165,9 @@ protected:
 private:
 
 	/**
-	 * creates an input-port when another module connects
-	 */
-	FLPort* craeteInputPort(std::string connectedModuleName);
-
-	/**
 	 * creates an output port when connecting to another module
 	 */
-	FLPort* createOutputPort(std::string connectedModuleName);
+	FLPort* createOutputPort(FLModule *connectedModule);
 
 	/**
 	 * creates the mapping from all ports from this module
