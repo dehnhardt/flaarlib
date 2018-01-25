@@ -32,7 +32,7 @@ public:
 	 * @return number of channels for this port
 	 */
 	int getNumberOfChannels() const {
-		return m_numberOfChannels;
+		return (m_numberOfChannels);
 	}
 
 	/**
@@ -41,6 +41,10 @@ public:
 	 */
 	void setNumberOfChannels(int numberOfChannels = 1) {
 		m_numberOfChannels = numberOfChannels;
+	}
+
+	FLModule * getModule() {
+		return (m_parent);
 	}
 
 private:

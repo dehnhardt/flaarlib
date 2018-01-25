@@ -41,23 +41,56 @@
 #ifndef FLAARLIB_H_
 #define FLAARLIB_H_
 
+#include <map>
+#include <vector>
+#include <string>
+#include <iterator>
+
+#include "helper/UniqueVector.hpp"
 
 namespace flaarlib {
 
+class FLModule;
+class InputModule;
+
 class FLAARLIB_API Flaarlib {
 public:
-	Flaarlib();
-	virtual ~Flaarlib();
+	// singleton pattern
+	static Flaarlib * instance() {
+		static CGuard g;   // Speicherbereinigung
+		if (!_instance)
+			_instance = new Flaarlib();
+		return (_instance);
+	}
+
+	void addModule(FLModule *module);
+	void addInputModule(InputModule *inputModule);
+	void loopDetection();
 
 private:
+	static Flaarlib *_instance;
+	Flaarlib();
+	Flaarlib(const Flaarlib &);
+	virtual ~Flaarlib();
 	void initializeLogging();
+
+	bool m_configurationValid = false;
+	UniqueVector<std::string> m_modules;
+	std::map<std::string, InputModule*> m_inputModules;
+	class CGuard {
+	public:
+		~CGuard() {
+			if ( NULL != Flaarlib::_instance) {
+				delete Flaarlib::_instance;
+				Flaarlib::_instance = NULL;
+			}
+		}
+	};
 };
 
 bool ininialize();
 
 } /* namespace flaarlib */
-
-
 
 
 #endif /* FLAARLIB_H_ */
