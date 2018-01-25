@@ -5,7 +5,7 @@
  *      Author: dehnhardt
  */
 
-#include "/home/dehnhardt/develop/Flaarlib/src/FLPort.h"
+#include "../src/FLPort.h"
 
 namespace flaarlib {
 

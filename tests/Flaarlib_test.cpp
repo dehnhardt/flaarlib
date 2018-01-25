@@ -5,7 +5,7 @@
  *      Author: dehnhardt
  */
 
-#include "/home/dehnhardt/develop/Flaarlib/src/Flaarlib.h"
+#include "../src/Flaarlib.h"
 
 namespace flaarlib {
 

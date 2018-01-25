@@ -46,7 +46,7 @@ int FLModule::connectOutput(FLModule* next) {
 	if (m_outputPorts[m_moduleName] != 0) {
 		FLLog::debug(
 				"The output of module %s is already connected to input of module %s",
-				getModuleName(), next->getModuleName());
+				getModuleName().c_str(), next->getModuleName().c_str());
 	}
 	//TODO implement exceptions
 	FLPort *p = createOutputPort(next->getModuleName());
