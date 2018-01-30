@@ -12,28 +12,37 @@ HEADERS = \
    src/helper/UniqueVector.hpp \
    src/logging/FLLog.h \
    src/logging/FLLogger.h \
-   src/modules/InputModule.h \
-   src/modules/OutputModule.h \
-   src/modules/ThroughModule.h \
-   src/osc/oscpkt.hh \
-   src/osc/udp.hh \
    src/Flaarlib.h \
    src/FLModule.h \
-   src/FLPort.h
+   src/FLPort.h \
+    src/FLRepository.h \
+    src/modules/FLInputModule.h \
+    src/modules/FLOutputModule.h \
+    src/modules/FLAudioFileInputModule.h \
+    src/modules/FLAudioFileOutputModule.h \
+    src/modules/FLProcessorModule.h \
+    src/modules/FLVolumeControl.h \
+    src/modules/FLMIDIFileInputModule.h \
+    src/FLModuleDefs.h
 
 SOURCES = \
    src/helper/LoopDetector.cpp \
    src/helper/LoopDetector_test.cpp \
    src/modules/InputModule.cpp \
    src/modules/OutputModule.cpp \
-   src/modules/ThroughModule.cpp \
    src/Flaarlib.cpp \
    src/FLModule.cpp \
    src/FLPort.cpp \
    tests/modules/InputModule_test.cpp \
    tests/Flaarlib_test.cpp \
    tests/FLModul_test.cpp \
-   tests/FLPort_test.cpp
+   tests/FLPort_test.cpp \
+    src/modules/ProcessorModule.cpp \
+    src/modules/AudioFileInputModule.cpp \
+    src/modules/AudioFileOutputModule.cpp \
+    src/modules/VolumeControl.cpp \
+    src/FLRepository.cpp \
+    src/modules/FLMIDIFileInputModule.cpp
 
 INCLUDEPATH = \
     $$PWD/src \
@@ -43,7 +52,7 @@ INCLUDEPATH = \
     $$PWD/src/modules
 
 DISTFILES += \
-	.astylerc
+        .astylerc
 
-#DEFINES = 
+#DEFINES =
 
