@@ -10,13 +10,18 @@
 
 #include "Flaarlib.h"
 #include "FLPort.h"
+#include "FLModuleDefs.h"
 
 #include <jack/jack.h>
 #include <map>
 #include <string>
 #include <boost/uuid/uuid.hpp>
 
-namespace flaarlib {
+namespace flaarlib
+{
+
+struct MODULE_INFO;
+
 
 /**
  * base class of all modules in the library
@@ -52,7 +57,11 @@ namespace flaarlib {
  *
  *
  */
-class FLAARLIB_API FLModule {
+
+
+
+class FLAARLIB_API FLModule
+{
 
 public:
 	/**
@@ -69,13 +78,13 @@ public:
 	/**
 	 * connects this modules output to an input of another module
 	 */
-	int connectOutput(FLModule * next);
+	int connectOutput(FLModule *next);
 
 	/**
 	 * callback method when another module connects its output
 	 * to this modules input
 	 */
-	int inputConnected(FLModule * previous);
+	int inputConnected(FLModule *previous);
 
 	/**
 	 * wrapper method for processing the data
@@ -86,7 +95,8 @@ public:
 	 * queries the name of this module
 	 * @return the name of this module
 	 */
-	std::string getModuleName() {
+	std::string getModuleName()
+	{
 		return (this->m_moduleName);
 	}
 
@@ -94,7 +104,8 @@ public:
 	 * Queries the number of input channels of this module
 	 * @return number of input channels for this module
 	 */
-	int getNumberOfInputChannels() const {
+	int getNumberOfInputChannels() const
+	{
 		return (m_numberOfInputChannels);
 	}
 
@@ -102,7 +113,8 @@ public:
 	 * queries how many input ports are connected to this module
 	 * @return number of connected input ports
 	 */
-	int getNumberOfInputPorts() const {
+	int getNumberOfInputPorts() const
+	{
 		return (m_numberOfInputPorts);
 	}
 
@@ -110,7 +122,8 @@ public:
 	 * queries the number of output channels of this module
 	 * @return number of output channels
 	 */
-	int getNumberOfOutputChannels() const {
+	int getNumberOfOutputChannels() const
+	{
 		return (m_numberOfOutputChannels);
 	}
 
@@ -118,20 +131,25 @@ public:
 	 * queries how many output ports are connected to this module
 	 * @return the number of output ports connected to this module
 	 */
-	int getNumberOfOutputPorts() const {
+	int getNumberOfOutputPorts() const
+	{
 		return (m_numberOfOutputPorts);
 	}
 
-	std::map<std::string, FLPort *> getOutputPorts() {
+	std::map<std::string, FLPort *> getOutputPorts()
+	{
 		return (m_outputPorts);
 	}
+
+	MODULE_INFO *moduleInfo();
 
 protected:
 	/**
 	 * method for processing the data
 	 */
 	virtual int internal_process(__attribute__((unused))  jack_nframes_t nframes,
-			__attribute__((unused)) void *arg) {
+								 __attribute__((unused)) void *arg)
+	{
 		return (0);
 	}
 
@@ -139,7 +157,8 @@ protected:
 	/**
 	 * method to overwrite when module has specific need when connecting
 	 */
-	virtual bool internal_connectOutput(__attribute__((unused))  FLModule * next) {
+	virtual bool internal_connectOutput(__attribute__((unused))  FLModule *next)
+	{
 		return (true);
 	}
 	/**
@@ -162,18 +181,26 @@ protected:
 	 */
 	int m_numberOfOutputPorts = 0;
 
-private:
+private: // Methods
 
 	/**
 	 * creates an output port when connecting to another module
 	 */
-	FLPort* createOutputPort(FLModule *connectedModule);
+	FLPort *createOutputPort(FLModule *connectedModule);
 
 	/**
 	 * creates the mapping from all ports from this module
 	 * to the next module.
 	 */
 	void createMapping();
+
+protected: // pure virtual methods to fill the info struct
+	virtual MODULE_TYPE getModuleType() = 0;
+	virtual std::string getModuleFuctionalName() = 0;
+	virtual std::string getModuleDescription() = 0;
+
+
+private: //Members
 
 	/**
 	 * the name of this module
@@ -188,19 +215,26 @@ private:
 	/**
 	 * all inputPorts
 	 */
-	std::map<std::string, FLPort*> m_inputPorts;
+	std::map<std::string, FLPort *> m_inputPorts;
 
 	/**
 	 * all outpuPorts
 	 */
-	std::map<std::string, FLPort*> m_outputPorts;
+	std::map<std::string, FLPort *> m_outputPorts;
 
 	/**
 	 * number of already processed input ports
 	 */
 	int m_processedInputs;
 
+	/**
+	 * @brief m_ModuleInfo
+	 * srtuct with module information
+	 */
+	MODULE_INFO *m_pModuleInfo = 0;
 };
+
+
 
 } /* namespace flaarlib */
 
