@@ -5,27 +5,32 @@
  *      Author: dehnhardt
  */
 
-#include "InputModule.h"
+#include "FLInputModule.h"
 
-namespace flaarlib {
+namespace flaarlib
+{
 
-InputModule::InputModule(std::string moduleName, int numberOfOutputChannels) :
-		FLModule(moduleName) {
+FLInputModule::FLInputModule(std::string moduleName, int numberOfOutputChannels) :
+	FLModule(moduleName)
+{
 	m_numberOfOutputChannels = numberOfOutputChannels;
 	m_numberOfOutputPorts = 0;
 	Flaarlib::instance()->addInputModule(this);
 }
 
-InputModule::~InputModule() {
+FLInputModule::~FLInputModule()
+{
 	// TODO Auto-generated destructor stub
 }
 
-int InputModule::internal_process(__attribute__((unused))  jack_nframes_t nframes,
-		__attribute__((unused)) void* arg) {
+int FLInputModule::internal_process(__attribute__((unused))  jack_nframes_t nframes,
+									__attribute__((unused)) void *arg)
+{
 	return (0);
 }
 
-bool InputModule::internal_connectOutput(__attribute__((unused))  FLModule* next) {
+bool FLInputModule::internal_connectOutput(__attribute__((unused))  FLModule *next)
+{
 	return (true);
 }
 

@@ -5,7 +5,7 @@
  *      Author: dehnhardt
  */
 
-#include "../../src/modules/InputModule.h"
+#include "../../src/modules/FLInputModule.h"
 
 namespace flaarlib {
 
