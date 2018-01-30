@@ -15,9 +15,9 @@
 namespace flaarlib {
 
 LoopDetector::LoopDetector(FLModule *m, UniqueVector<std::string> v) :
-		m_module(m) {
+		m_pModule(m) {
 	m_Unique = UniqueVector<std::string>(v);
-	m_Unique.push_back_unique(m_module->getModuleName());
+	m_Unique.push_back_unique(m_pModule->getModuleName());
 	loop();
 }
 
@@ -26,11 +26,11 @@ LoopDetector::~LoopDetector() {
 }
 
 void LoopDetector::loop() {
-	while (m_module != 0) {
-		int numberOfOutputPorts = m_module->getNumberOfOutputPorts();
+	while (m_pModule != 0) {
+		int numberOfOutputPorts = m_pModule->getNumberOfOutputPorts();
 		if (numberOfOutputPorts > 0) {
 			std::map<std::string, FLPort *> outputPorts =
-					m_module->getOutputPorts();
+					m_pModule->getOutputPorts();
 			std::map<std::string, FLPort*>::iterator it;
 			int i = 0;
 			for (it = outputPorts.begin(); it != outputPorts.end(); ++it, ++i) {
@@ -44,7 +44,7 @@ void LoopDetector::loop() {
 						throw new ConfigurationExecption(
 								ConfigurationExceptionType::SIGNAL_LOOP);
 					}
-					m_module = m;
+					m_pModule = m;
 				} else {
 					new LoopDetector(m, m_Unique);
 				}

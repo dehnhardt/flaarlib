@@ -13,17 +13,19 @@
 
 #include <string>
 
-namespace flaarlib {
+namespace flaarlib
+{
 
 using namespace std;
 
-class LoopDetector {
+class LoopDetector
+{
 public:
 	LoopDetector(FLModule *m, UniqueVector<string> v);
 	virtual ~LoopDetector();
 
 private:
-	FLModule *m_module;
+	FLModule *m_pModule;
 	UniqueVector<string> m_Unique;
 
 	void loop();
