@@ -13,6 +13,11 @@ public:
 	FLMIDIFileInputModule(std::string moduleName);
 
 protected: //repository methods
+	virtual DATA_TYPE getModuleDataType() override
+	{
+		return DATA_TYPE::MIDI;
+	}
+
 	virtual std::string getModuleFuctionalName() override
 	{
 		return "MIDIfile Input";

@@ -104,6 +104,7 @@ MODULE_INFO *FLModule::moduleInfo()
 	{
 		m_pModuleInfo = new MODULE_INFO();
 		m_pModuleInfo->type = getModuleType();
+		m_pModuleInfo->dataType = getModuleDataType();
 		m_pModuleInfo->functionalname = getModuleFuctionalName();
 		m_pModuleInfo->description = getModuleDescription();
 	}

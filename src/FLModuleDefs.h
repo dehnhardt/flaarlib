@@ -13,9 +13,18 @@ enum MODULE_TYPE
 	PROCESSOR = 3
 };
 
+enum DATA_TYPE
+{
+	UNKNOWN = 0,
+	AUDIO = 1,
+	MIDI = 2,
+	OSC = 3
+};
+
 struct MODULE_INFO
 {
 	MODULE_TYPE type;
+	DATA_TYPE dataType;
 	std::string functionalname;
 	std::string description;
 };

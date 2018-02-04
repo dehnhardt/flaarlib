@@ -13,6 +13,12 @@ public:
 	FLAudioFileInputModule(std::string moduleName, int numberOfOutputChannels);
 
 protected: //repository methods
+
+	virtual DATA_TYPE getModuleDataType() override
+	{
+		return DATA_TYPE::AUDIO;
+	}
+
 	virtual std::string getModuleFuctionalName() override
 	{
 		return "Audiofile Input";

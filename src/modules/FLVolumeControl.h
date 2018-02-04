@@ -13,6 +13,12 @@ public:
 					int numberOfOutputChannels);
 
 protected: //repository methods
+
+	virtual DATA_TYPE getModuleDataType() override
+	{
+		return DATA_TYPE::UNKNOWN;
+	}
+
 	virtual std::string getModuleFuctionalName() override
 	{
 		return "Volume Control";

@@ -196,6 +196,7 @@ private: // Methods
 
 protected: // pure virtual methods to fill the info struct
 	virtual MODULE_TYPE getModuleType() = 0;
+	virtual DATA_TYPE getModuleDataType() = 0;
 	virtual std::string getModuleFuctionalName() = 0;
 	virtual std::string getModuleDescription() = 0;
 
