@@ -6,7 +6,7 @@
 namespace flaarlib
 {
 
-class FLMIDIFileInputModule : public FLInputModule
+class FLAARLIB_API FLMIDIFileInputModule : public FLInputModule
 {
 
 public:
