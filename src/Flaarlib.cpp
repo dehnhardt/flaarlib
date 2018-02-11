@@ -46,6 +46,7 @@ void Flaarlib::initializeLogging()
 bool Flaarlib::createRepository()
 {
 	m_pRepository = new FLRepository();
+	// don't use uuid here as we don't want to register a module twice
 	m_pRepository->registerModule( new FLAudioFileInputModule("r_AudioFileInputModule", -1));
 	m_pRepository->registerModule( new FLMIDIFileInputModule("r_MIDIFileInputModule"));
 	m_pRepository->registerModule( new FLAudioFileOutputModule("r_AudioFileOutputModule", -1));
@@ -55,7 +56,7 @@ bool Flaarlib::createRepository()
 
 void Flaarlib::addInputModule(FLInputModule *inputModule)
 {
-	m_inputModules[inputModule->getModuleName()] = inputModule;
+	m_inputModules[inputModule->getModuleUuid()] = inputModule;
 }
 
 bool Flaarlib::init()
@@ -67,8 +68,8 @@ bool Flaarlib::init()
 
 void Flaarlib::addModule(FLModule *module)
 {
-	string moduleName = module->getModuleName();
-	if (!m_modules.push_back_unique(moduleName))
+	string moduleUuid = module->getModuleUuid();
+	if (!m_modules.push_back_unique(moduleUuid))
 		throw new ConfigurationExecption(
 				ConfigurationExceptionType::NAME_NOT_UNIQUE, "ABC", "DEF");
 }

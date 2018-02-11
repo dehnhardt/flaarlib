@@ -101,6 +101,15 @@ public:
 	}
 
 	/**
+	 * queries the uuid of this module
+	 * @return the uuid of this module as std::string
+	 */
+	std::string getModuleUuid()
+	{
+		return (this->m_moduleUuid);
+	}
+
+	/**
 	 * Queries the number of input channels of this module
 	 * @return number of input channels for this module
 	 */
@@ -204,14 +213,14 @@ protected: // pure virtual methods to fill the info struct
 private: //Members
 
 	/**
+	 * a uuid for this module
+	 */
+	std::string m_moduleUuid;
+
+	/**
 	 * the name of this module
 	 */
 	std::string m_moduleName;
-
-	/**
-	 * a uuid for this module
-	 */
-	boost::uuids::uuid m_moduleUUID;
 
 	/**
 	 * all inputPorts

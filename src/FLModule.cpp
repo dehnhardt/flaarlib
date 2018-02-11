@@ -15,16 +15,15 @@
 namespace flaarlib
 {
 
-FLModule::FLModule(std::string moduleName) :
+FLModule::FLModule(std::string moduleUuid) :
 	m_numberOfInputChannels(-1), m_numberOfOutputChannels(-1), m_numberOfInputPorts(
-			-1), m_numberOfOutputPorts(-1), m_moduleName(moduleName), m_processedInputs(
+			-1), m_numberOfOutputPorts(-1), m_moduleUuid(moduleUuid), m_processedInputs(
 					-1)
 {
 
 	boost::uuids::random_generator gen;
-	m_moduleUUID = gen();
 	Flaarlib::instance()->addModule(this);
-	FLLog::info("FLModule \"%s\" initialized", moduleName.c_str());
+	FLLog::info("FLModule \"%s\" initialized", moduleUuid.c_str());
 }
 
 FLModule::~FLModule()
@@ -36,11 +35,11 @@ FLModule::~FLModule()
 int FLModule::connectOutput(FLModule *next)
 {
 	// Modules already connected
-	if (m_outputPorts[next->getModuleName()] != 0)
+	if (m_outputPorts[next->getModuleUuid()] != 0)
 	{
 		FLLog::debug(
 				"The output of module %s is already connected to input of module %s",
-				getModuleName().c_str(), next->getModuleName().c_str());
+				getModuleUuid().c_str(), next->getModuleUuid().c_str());
 		return (0);
 	}
 	if (m_numberOfOutputPorts == -1)
@@ -60,8 +59,7 @@ int FLModule::connectOutput(FLModule *next)
 		throw new ConfigurationExecption(
 				ConfigurationExceptionType::MORE_INPUT_CHANNELS);
 	FLPort *p = createOutputPort(next);
-	// this->m_outputPorts[next->getModuleName()] = p;
-	next->m_inputPorts[getModuleName()] = p;
+	next->m_inputPorts[getModuleUuid()] = p;
 	// call callback in following module
 	next->inputConnected(this);
 	return (0);
@@ -70,8 +68,8 @@ int FLModule::connectOutput(FLModule *next)
 int FLModule::inputConnected(FLModule *previous)
 {
 	//TODO implement
-	FLLog::debug("%s: Input connected to %s", getModuleName().c_str(),
-				 previous->getModuleName().c_str());
+	FLLog::debug("%s: Input connected to %s", getModuleUuid().c_str(),
+				 previous->getModuleUuid().c_str());
 	return (0);
 }
 
@@ -93,7 +91,7 @@ FLPort *FLModule::createOutputPort(FLModule *connectedModule)
 {
 	FLPort *p = new FLPort(connectedModule);
 	p->setNumberOfChannels(m_numberOfOutputChannels);
-	m_outputPorts[connectedModule->getModuleName()] = p;
+	m_outputPorts[connectedModule->getModuleUuid()] = p;
 	m_numberOfOutputPorts++;
 	return (p);
 }
