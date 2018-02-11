@@ -28,8 +28,6 @@ HEADERS = \
 SOURCES = \
    src/helper/LoopDetector.cpp \
    src/helper/LoopDetector_test.cpp \
-   src/modules/InputModule.cpp \
-   src/modules/OutputModule.cpp \
    src/Flaarlib.cpp \
    src/FLModule.cpp \
    src/FLPort.cpp \
@@ -37,12 +35,14 @@ SOURCES = \
    tests/Flaarlib_test.cpp \
    tests/FLModul_test.cpp \
    tests/FLPort_test.cpp \
-    src/modules/ProcessorModule.cpp \
-    src/modules/AudioFileInputModule.cpp \
-    src/modules/AudioFileOutputModule.cpp \
-    src/modules/VolumeControl.cpp \
     src/FLRepository.cpp \
-    src/modules/FLMIDIFileInputModule.cpp
+    src/modules/FLMIDIFileInputModule.cpp \
+    src/modules/FLAudioFileInputModule.cpp \
+    src/modules/FLAudioFileOutputModule.cpp \
+    src/modules/FLInputModule.cpp \
+    src/modules/FLOutputModule.cpp \
+    src/modules/FLProcessorModule.cpp \
+    src/modules/FLVolumeControl.cpp
 
 INCLUDEPATH = \
     $$PWD/src \
