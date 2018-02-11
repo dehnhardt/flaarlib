@@ -18,7 +18,7 @@ class FLAARLIB_API FLInputModule : public FLModule
 {
 
 public:
-	FLInputModule(const std::string moduleName, const int numberOfOutputChannels);
+	FLInputModule(const std::string moduleUuid, const int numberOfOutputChannels);
 	virtual ~FLInputModule();
 
 	/**

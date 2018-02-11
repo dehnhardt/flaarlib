@@ -10,9 +10,9 @@
 namespace flaarlib
 {
 
-FLProcessorModule::FLProcessorModule(std::string moduleName, int numberOfInputChannels,
+FLProcessorModule::FLProcessorModule(std::string moduleUuid, int numberOfInputChannels,
 									 int numberOfOutputChannels) :
-	FLModule(moduleName)
+	FLModule(moduleUuid)
 {
 	m_numberOfInputChannels = numberOfInputChannels;
 	m_numberOfOutputChannels = numberOfOutputChannels;

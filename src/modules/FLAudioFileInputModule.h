@@ -10,7 +10,7 @@ namespace flaarlib
 class FLAARLIB_API FLAudioFileInputModule : public FLInputModule
 {
 public:
-	FLAudioFileInputModule(std::string moduleName, int numberOfOutputChannels);
+	FLAudioFileInputModule(std::string moduleUuid, int numberOfOutputChannels);
 
 protected: //repository methods
 

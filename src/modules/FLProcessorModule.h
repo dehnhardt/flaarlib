@@ -18,7 +18,7 @@ class FLAARLIB_API FLProcessorModule: public FLModule
 {
 
 public:
-	FLProcessorModule(std::string moduleName, int numberOfInputChannels,
+	FLProcessorModule(std::string moduleUuid, int numberOfInputChannels,
 					  int numberOfOutputChannels);
 	virtual ~FLProcessorModule();
 

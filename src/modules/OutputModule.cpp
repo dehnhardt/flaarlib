@@ -10,8 +10,8 @@
 namespace flaarlib
 {
 
-FLOutputModule::FLOutputModule(std::string moduleName, int numberOfInputChannels) :
-	FLModule(moduleName)
+FLOutputModule::FLOutputModule(std::string moduleUuid, int numberOfInputChannels) :
+	FLModule(moduleUuid)
 {
 	m_numberOfInputChannels = numberOfInputChannels;
 	m_numberOfInputPorts = 0;

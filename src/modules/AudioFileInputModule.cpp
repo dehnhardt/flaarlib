@@ -3,8 +3,8 @@
 namespace flaarlib
 {
 
-FLAudioFileInputModule::FLAudioFileInputModule(std::string moduleName, int numberOfOutputChannels) :
-	FLInputModule(moduleName, numberOfOutputChannels)
+FLAudioFileInputModule::FLAudioFileInputModule(std::string moduleUuid, int numberOfOutputChannels) :
+	FLInputModule(moduleUuid, numberOfOutputChannels)
 {
 
 }

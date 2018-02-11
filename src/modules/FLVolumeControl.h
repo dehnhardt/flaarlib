@@ -9,7 +9,7 @@ namespace flaarlib
 class FLAARLIB_API FLVolumeControl : public FLProcessorModule
 {
 public:
-	FLVolumeControl(std::string moduleName, int numberOfInputChannels,
+	FLVolumeControl(std::string moduleUuid, int numberOfInputChannels,
 					int numberOfOutputChannels);
 
 protected: //repository methods

@@ -2,8 +2,8 @@
 
 namespace flaarlib
 {
-FLMIDIFileInputModule::FLMIDIFileInputModule(std::string moduleName) :
-	FLInputModule(moduleName, 1)
+FLMIDIFileInputModule::FLMIDIFileInputModule(std::string moduleUuid) :
+	FLInputModule(moduleUuid, 1)
 {
 
 }

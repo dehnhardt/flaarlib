@@ -10,7 +10,7 @@ class FLMIDIFileInputModule : public FLInputModule
 {
 
 public:
-	FLMIDIFileInputModule(std::string moduleName);
+	FLMIDIFileInputModule(std::string moduleUuid);
 
 protected: //repository methods
 	virtual DATA_TYPE getModuleDataType() override
