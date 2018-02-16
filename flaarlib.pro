@@ -7,14 +7,14 @@ CONFIG += c++14
 TEMPLATE = lib
 
 HEADERS = \
-   src/exceptions/Exceptions.h \
-   src/helper/LoopDetector.h \
-   src/helper/UniqueVector.hpp \
-   src/logging/FLLog.h \
-   src/logging/FLLogger.h \
-   src/Flaarlib.h \
-   src/FLModule.h \
-   src/FLPort.h \
+	src/exceptions/Exceptions.h \
+	src/helper/LoopDetector.h \
+	src/helper/UniqueVector.hpp \
+	src/logging/FLLog.h \
+	src/logging/FLLogger.h \
+	src/Flaarlib.h \
+	src/FLModule.h \
+	src/FLPort.h \
     src/FLRepository.h \
     src/modules/FLInputModule.h \
     src/modules/FLOutputModule.h \
@@ -26,15 +26,15 @@ HEADERS = \
     src/FLModuleDefs.h
 
 SOURCES = \
-   src/helper/LoopDetector.cpp \
-   src/helper/LoopDetector_test.cpp \
-   src/Flaarlib.cpp \
-   src/FLModule.cpp \
-   src/FLPort.cpp \
-   tests/modules/InputModule_test.cpp \
-   tests/Flaarlib_test.cpp \
-   tests/FLModul_test.cpp \
-   tests/FLPort_test.cpp \
+	src/helper/LoopDetector.cpp \
+	src/helper/LoopDetector_test.cpp \
+	src/Flaarlib.cpp \
+	src/FLModule.cpp \
+	src/FLPort.cpp \
+	tests/modules/InputModule_test.cpp \
+	tests/Flaarlib_test.cpp \
+	tests/FLModul_test.cpp \
+	tests/FLPort_test.cpp \
     src/FLRepository.cpp \
     src/modules/FLMIDIFileInputModule.cpp \
     src/modules/FLAudioFileInputModule.cpp \
