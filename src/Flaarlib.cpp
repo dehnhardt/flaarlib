@@ -59,6 +59,17 @@ void Flaarlib::addInputModule(FLInputModule *inputModule)
 	m_inputModules[inputModule->getModuleUuid()] = inputModule;
 }
 
+void Flaarlib::removeModule(std::string uuid)
+{
+	//m_modules.erase(m_inputModules.find(uuid));
+	for( UniqueVector<std::string>::iterator it = m_modules.begin(); it < m_modules.end(); ++it)
+	{
+		if( *it == uuid )
+			m_modules.erase(it);
+		m_pRepository->removeModule(uuid);
+	}
+}
+
 bool Flaarlib::init()
 {
 	bool ret = true;
