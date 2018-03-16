@@ -18,7 +18,8 @@ enum DATA_TYPE
 	UNKNOWN = 0,
 	AUDIO = 1,
 	MIDI = 2,
-	OSC = 3
+	OSC = 4,
+	ALL = 255
 };
 
 struct MODULE_INFO
