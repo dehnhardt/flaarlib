@@ -71,7 +71,7 @@ public: // methods
 	bool init();
 	void addModule(FLModule *module);
 	void addInputModule(FLInputModule *inputModule);
-	void removeModule(std::string uuid);
+	bool removeModule(std::string uuid);
 	void loopDetection();
 
 public: // getter
