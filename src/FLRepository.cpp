@@ -18,17 +18,23 @@ void FLRepository::registerModule(FLModule *module)
 	FLLog::debug("Add Module %s to repository", mi->functionalname.c_str());
 }
 
-void FLRepository::removeModule(std::string uuid)
+bool FLRepository::removeModule(std::string uuid)
 {
+	FLLog::debug("aboot to Remove %s", uuid.c_str());
 	for( auto repositoryMap : m_RepositoryMap )
 	{
-		FLLog::debug("Remove %s", uuid.c_str());
-		if( repositoryMap.second[uuid] )
+		if( repositoryMap.second.find(uuid) != repositoryMap.second.end() )
 		{
-			repositoryMap.second.erase(repositoryMap.second.find(uuid));
-			FLLog::debug("Remove %s", uuid.c_str());
+			if( repositoryMap.second.erase(uuid) == 1)
+			{
+				FLLog::debug("Removed %s", uuid.c_str());
+				return true;
+			}
+			else
+				FLLog::error("%s not found", uuid.c_str());
 		}
 	}
+	return false;
+}
 }
 
-}

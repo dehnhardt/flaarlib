@@ -15,7 +15,7 @@ class FLAARLIB_API FLRepository
 public:
 	FLRepository();
 	void registerModule( FLModule *pModule );
-	void removeModule( std::string uuid );
+	bool removeModule( std::string uuid );
 
 public: // getters
 	std::map<MODULE_TYPE,std::map<std::string,MODULE_INFO *>> FLRepositoryMap()
