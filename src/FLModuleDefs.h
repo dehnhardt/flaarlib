@@ -13,6 +13,12 @@ enum MODULE_TYPE
 	PROCESSOR = 3
 };
 
+enum PORT_TYPE
+{
+	INPUT_PORT = 1,
+	OUTPUT_PORT = 2
+};
+
 enum DATA_TYPE
 {
 	UNKNOWN = 0,
