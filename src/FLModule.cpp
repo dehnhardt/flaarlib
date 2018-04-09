@@ -16,9 +16,9 @@ namespace flaarlib
 {
 
 FLModule::FLModule(std::string moduleUuid) :
-	m_numberOfInputChannels(-1), m_numberOfOutputChannels(-1), m_numberOfInputPorts(
-			-1), m_numberOfOutputPorts(-1), m_moduleUuid(moduleUuid), m_processedInputs(
-					-1)
+	m_numberOfInputChannels(-1), m_numberOfOutputChannels(-1),
+	m_numberOfOutputPorts(-1), m_moduleUuid(moduleUuid), m_processedInputs(
+			-1)
 {
 
 	boost::uuids::random_generator gen;
@@ -34,8 +34,21 @@ FLModule::~FLModule()
 
 int FLModule::connectOutput(FLModule *next)
 {
+	return connectOutput(0, next, 0);
+}
+
+int FLModule::connectOutput(int outputPortNo, FLModule *next)
+{
+	return connectOutput( outputPortNo, next, 0);
+}
+
+int FLModule::connectOutput(int outputPortNo, FLModule *next, int inputPortNo)
+{
 	// Modules already connected
-	if (m_outputPorts[next->getModuleUuid()] != 0)
+	if( m_outputPorts.size() < outputPortNo)
+		return -1;
+
+	if (m_outputPorts[outputPortNo][next->getModuleUuid()] != 0)
 	{
 		FLLog::debug(
 				"The output of module %s is already connected to input of module %s",
@@ -59,10 +72,11 @@ int FLModule::connectOutput(FLModule *next)
 		throw new ConfigurationExecption(
 				ConfigurationExceptionType::MORE_INPUT_CHANNELS);
 	FLPort *p = createOutputPort(next);
-	next->m_inputPorts[getModuleUuid()] = p;
+	next->m_inputPorts[inputPortNo][getModuleUuid()] = p;
 	// call callback in following module
-	next->inputConnected(this);
+	next->inputConnected(inputPortNo, this);
 	return (0);
+
 }
 
 int FLModule::inputConnected(FLModule *previous)
@@ -89,9 +103,14 @@ int FLModule::process(jack_nframes_t nframes, void *arg)
 
 FLPort *FLModule::createOutputPort(FLModule *connectedModule)
 {
+	return createOutputPort(0, connectedModule );
+}
+
+FLPort *FLModule::createOutputPort(int outputPortNo, FLModule *connectedModule)
+{
 	FLPort *p = new FLPort(connectedModule);
 	p->setNumberOfChannels(m_numberOfOutputChannels);
-	m_outputPorts[connectedModule->getModuleUuid()] = p;
+	m_outputPorts[outputPortNo][connectedModule->getModuleUuid()] = p;
 	m_numberOfOutputPorts++;
 	return (p);
 }
@@ -107,6 +126,33 @@ MODULE_INFO *FLModule::moduleInfo()
 		m_pModuleInfo->description = getModuleDescription();
 	}
 	return  m_pModuleInfo;
+}
+
+void FLModule::setNumberOfInputPorts(int numberOfInputPorts)
+{
+	{
+		int current = m_inputPorts.size();
+		if( current != numberOfInputPorts )
+		{
+			if(numberOfInputPorts >current )
+				m_inputPorts.resize(numberOfInputPorts);
+			else
+			{
+				for( --current; current > numberOfInputPorts; current--  )
+				{
+					for( auto inputPort : m_inputPorts[current])
+					{
+						FLPort *port = inputPort.second;
+						FLModule *module = port->getModule();
+						//TODO callback to delete connections
+						FLLog::info("Delete connections from port %d to module %s", current, module->getModuleUuid());
+					}
+				}
+			}
+		}
+		m_numberOfInputPorts = m_inputPorts.size();
+	}
+
 }
 
 } /* namespace flaarlib */

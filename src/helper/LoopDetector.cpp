@@ -35,28 +35,31 @@ void LoopDetector::loop()
 		int numberOfOutputPorts = m_pModule->getNumberOfOutputPorts();
 		if (numberOfOutputPorts > 0)
 		{
-			std::map<std::string, FLPort *> outputPorts =
-					m_pModule->getOutputPorts();
-			std::map<std::string, FLPort *>::iterator it;
-			int i = 0;
-			for (it = outputPorts.begin(); it != outputPorts.end(); ++it, ++i)
+			std::vector<std::map<std::string, FLPort *>> outputPorts =
+							m_pModule->getOutputPorts();
+			for( auto outputPort : outputPorts )
 			{
-				FLPort *p = it->second;
-				FLModule *m = p->getModule();
-				std::string uuid = m->getModuleUuid();
-				if (i == 0)
+				int i = 0;
+				for( auto portConnection : outputPort )
 				{
-					if (!m_Unique.push_back_unique(uuid))
+					FLPort *p = portConnection.second;
+					FLModule *m = p->getModule();
+					std::string uuid = m->getModuleUuid();
+					if (i == 0)
 					{
-						FLLog::error("Loop in ModulePath: %s/%s",
-									 constructPath().c_str(), uuid.c_str());
-						throw new ConfigurationExecption(
-								ConfigurationExceptionType::SIGNAL_LOOP);
+						if (!m_Unique.push_back_unique(uuid))
+						{
+							FLLog::error("Loop in ModulePath: %s/%s",
+										 constructPath().c_str(), uuid.c_str());
+							throw new ConfigurationExecption(
+									ConfigurationExceptionType::SIGNAL_LOOP);
+						}
+						m_pModule = m;
 					}
-					m_pModule = m;
+					else
+						new LoopDetector(m, m_Unique);
+
 				}
-				else
-					new LoopDetector(m, m_Unique);
 			}
 		}
 		else

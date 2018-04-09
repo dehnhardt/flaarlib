@@ -76,20 +76,48 @@ public:
 	virtual ~FLModule();
 
 	/**
-	 * connects this modules output to an input of another module
+	 * connects this modules first output port to the first input port
+	 * of another module
+	 * @param next the module connected to
 	 */
 	int connectOutput(FLModule *next);
 
 	/**
+	 * connects this modules output to the firt input port of another module
+	 * @param outputPortNo the port number wich is connected to another module
+	 * @param next the module connected to
+	 */
+	int connectOutput(int outputPortNo, FLModule *next);
+
+	/**
+	 * connects this modules output to an input of another module
+	 * @param outputPortNo the port number wich is connected to another module
+	 * @param next the module connected to
+	 */
+	int connectOutput(int outputPortNo, FLModule *next, int inputPortNo );
+
+	/**
 	 * callback method when another module connects its output
-	 * to this modules input
+	 * to this modules first input port
+	 * @param previous tho module, this modules input port is connected to
 	 */
 	int inputConnected(FLModule *previous);
+
+	/**
+	 * callback method when another module connects its output
+	 * to this modules input
+	 * @param previous tho module, this modules input port is connected to
+	 * @param inputPortNo the number of this modules input port which is connected
+	 */
+	int inputConnected(int inputPortNo, FLModule *previous);
 
 	/**
 	 * wrapper method for processing the data
 	 */
 	int process(jack_nframes_t nframes, void *arg);
+
+
+public: //getter
 
 	/**
 	 * queries the name of this module
@@ -122,9 +150,9 @@ public:
 	 * queries how many input ports are connected to this module
 	 * @return number of connected input ports
 	 */
-	int getNumberOfInputPorts() const
+	int numberOfInputPorts() const
 	{
-		return (m_numberOfInputPorts);
+		return (m_inputPorts.size());
 	}
 
 	/**
@@ -145,12 +173,16 @@ public:
 		return (m_numberOfOutputPorts);
 	}
 
-	std::map<std::string, FLPort *> getOutputPorts()
+	std::vector<std::map<std::string, FLPort *>> getOutputPorts()
 	{
 		return (m_outputPorts);
 	}
 
 	MODULE_INFO *moduleInfo();
+
+public: //setter
+
+	void setNumberOfInputPorts(int numberOfInputPorts);
 
 protected:
 	/**
@@ -195,6 +227,11 @@ private: // Methods
 	/**
 	 * creates an output port when connecting to another module
 	 */
+	FLPort *createOutputPort(int outputModuleNo, FLModule *connectedModule);
+
+	/**
+	 * creates an output port when connecting to another module
+	 */
 	FLPort *createOutputPort(FLModule *connectedModule);
 
 	/**
@@ -225,12 +262,12 @@ private: //Members
 	/**
 	 * all inputPorts
 	 */
-	std::map<std::string, FLPort *> m_inputPorts;
+	std::vector<std::map<std::string, FLPort *>> m_inputPorts;
 
 	/**
 	 * all outpuPorts
 	 */
-	std::map<std::string, FLPort *> m_outputPorts;
+	std::vector<std::map<std::string, FLPort *>> m_outputPorts;
 
 	/**
 	 * number of already processed input ports
@@ -243,7 +280,6 @@ private: //Members
 	 */
 	MODULE_INFO *m_pModuleInfo = 0;
 };
-
 
 
 } /* namespace flaarlib */
